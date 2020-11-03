@@ -2,6 +2,22 @@
  
 # Sudoku board Size
 n = 9
+def validBoard(board):
+    rows  = [set() for _ in range(9)]
+    cols  = [set() for _ in range(9)]
+    dices = [[set() for _ in range(3)] for _ in range(3)]
+
+    for i in range(9):
+        for j in range(9):
+            e = board[i][j]
+            if e == 0: 
+                continue
+            if e in rows[i] or e in cols[j] or e in dices[i//3][j//3]: 
+                return False
+            rows[i].add(e)
+            cols[j].add(e)
+            dices[i//3][j//3].add(e)
+    return True
 
 def checkValid(input_value,x,y,board):
     # # check spot
@@ -46,6 +62,9 @@ def printSolution(board):
         print()
 
 def solveSudoku(board):
+    if(not validBoard(board)):
+        print('Not Valid Sudoku')
+        return
     if(not solveSudokuUtil(board, 0, 0)):
         print("Solution does not exist")
     else:
@@ -78,6 +97,7 @@ def solveSudokuUtil(board, curr_x, curr_y):
 if __name__ == "__main__":
     board = [[0 for i in range(n)]for i in range(n)]
     board[0][0] = 1
+    board[1][0] = 1
     # Function Call
     printSolution(board)
     solveSudoku(board)

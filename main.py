@@ -1,7 +1,17 @@
+import logging
+
 # Python3 program to solve Soduku problem using Backtracking
  
 # Sudoku board Size
 n = 9
+
+logging.basicConfig(filename='example.log',level=logging.DEBUG,filemode='w')
+
+logger = logging.getLogger(__name__)
+
+file_handler = logging.FileHandler('main.log',mode='w')
+logger.addHandler(file_handler)
+
 def validBoard(board):
     rows  = [set() for _ in range(9)]
     cols  = [set() for _ in range(9)]
